@@ -1,2 +1,2 @@
-# bash_script
-Une collection de script bash
+# bash_scripts
+Une collection de scripts bash
