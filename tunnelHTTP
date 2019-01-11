@@ -1,0 +1,20 @@
+#!/bin/bash
+
+HOSTNAME=$1
+PORT=$2
+
+CONFFILE=tunnelHTTP.conf
+
+source tunnelHTTP.conf
+
+for PROCESS in $(ps aux | grep ssh | grep ${PORT} | awk '{print $2}'); do
+  kill ${PROCESS}
+done
+
+ssh -N -L${PORT}:${HOSTNAME}:${PORT} ${USERNAME}@${PROXY} &
+pid=$!
+echo "waiting a few seconds to establish tunneli with PID ${pid}..."
+sleep 2
+
+${BROWSER} --app=http://127.0.0.1:${PORT} 
+
